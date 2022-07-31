@@ -27,6 +27,8 @@ class MyDocument extends Document {
           <meta property="og:type" content="website" />
           <meta property="og:image" content={`${baseUrl}/ogp.png`} />
           <link href="https://unpkg.com/nes.css@2.3.0/css/nes.min.css" rel="stylesheet" />
+          <meta name="twitter:card" content="summary" />
+          <meta name="twitter:site" content="@yamashitaP21"/>
           <GoogleAnalytics />
         </Head>
         <body>
