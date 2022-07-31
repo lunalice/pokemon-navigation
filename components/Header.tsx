@@ -16,7 +16,7 @@ export default function Header() {
           </div>
           <div className="flex-1 text-right"><p className="lg:text-2xl">Share on</p>
             <div className="share">
-              <a href="https://twitter.com/share?text=Pokemon+navigation+%7C+%40yamashitaP21&amp;url=https://github.com/lunalice/pokemon-navigation/" target="_blank" rel="noreferrer"><i className="nes-icon twitter"></i></a>
+              <a href="https://twitter.com/share?text=Pokemon+navigation+%7C+%40yamashitaP21&amp;url=https://pokemon-navigation.vercel.app/" target="_blank" rel="noreferrer"><i className="nes-icon twitter"></i></a>
               <a href="https://github.com/lunalice/pokemon-navigation/" target="_blank" rel="noreferrer"><i className="nes-icon github"></i></a>
               <a href="https://forms.gle/9tTKqNvWz5rybrP2A" target="_blank" rel="noreferrer"><i className="nes-icon coin"></i></a>
             </div>
