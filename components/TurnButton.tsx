@@ -11,7 +11,7 @@ export default function TurnButton({ id, pokemonIds }: any) {
             isPrev && (
                 <Link href={{ pathname: '/pokemon/[id]', query: { id: prevId }}} passHref>
                     <a>
-                        <button className="nes-btn fixed top-[50%] left-4">{`<`}</button>
+                        <button className="nes-btn fixed top-[50%] left-4 z-10">{`<`}</button>
                     </a>
                 </Link>
             )
@@ -20,7 +20,7 @@ export default function TurnButton({ id, pokemonIds }: any) {
             isNext && (
                 <Link href={{ pathname: '/pokemon/[id]', query: { id: nextId }}} passHref>
                     <a>
-                        <button className="nes-btn fixed top-[50%] right-4">{`>`}</button>
+                        <button className="nes-btn fixed top-[50%] right-4 z-10">{`>`}</button>
                     </a>
                 </Link>
             )
