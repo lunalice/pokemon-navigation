@@ -34,8 +34,8 @@ const Pokedex: NextPage = ({ pokemonIndex }: any) => {
       <Head>
         <title>Pokedex</title>
       </Head>
-      <main>
-        <div className="flex flex-wrap container mx-auto mt-10 mb-10">
+      <main className="mx-5">
+        <div className="flex flex-wrap container mx-auto my-10">
           {pokemonIndex.map((v: any) => (
             <Link key={v.id} href={{ pathname: '/pokemon/[id]', query: { id: v.id }}} passHref>
               <a className="flex flex-col justify-center items-center flex-1 card w-1/2 border-4 border-black mr-1 mb-1 p-2">

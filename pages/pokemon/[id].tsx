@@ -2,6 +2,8 @@ import type { NextPage, GetServerSideProps } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
 import { PokemonClient, UtilityClient } from 'pokenode-ts';
+import TurnButton from '../../components/TurnButton';
+import { useRouter } from 'next/router'
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -44,28 +46,18 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   if (!species) return { notFound: true };
 
-  // "abilities"
-  // "base_experience"
-  // "forms"
-  // "game_indices"
-  // "height"
-  // "held_items"
-  // "id"
-  // "is_default"
-  // "location_area_encounters"
-  // "moves"
-  // "name"
-  // "order"
-  // "past_types"
-  // "species"
-  // "sprites"
-  // "stats"
-  // "types"
-  // "weight"
+  const pokemonList = await api
+    .listPokemons(0, 1000);
+  const pokemonIds = pokemonList
+    .results
+    .map(v => Number((v.url.match('/.*\/([0-9]+)/') || [])[1]))
+    .filter(v => !!v);
+
   return {
     props: {
       pokemon: json,
       species: species,
+      pokemonIds: pokemonIds,
     },
   };
 };
@@ -119,10 +111,12 @@ export const options = {
   },
 };
 
-const Pokemon: NextPage = ({ pokemon, species }:any) => {
+const Pokemon: NextPage = ({ pokemon, species, pokemonIds }:any) => {
   const genera = species.genera.find((v: any) => v.language.name === 'en');
   const flavor_text_entries = species.flavor_text_entries.find((v: any) => v.language.name === 'en');
   const game_indices = pokemon.game_indices.map((v: any) => v.version.name);
+  const router = useRouter();
+  const { id } = router.query;
   return (
     <div>
       <Head>
@@ -130,6 +124,11 @@ const Pokemon: NextPage = ({ pokemon, species }:any) => {
         <meta name="description" content={`This page is a detailed page about ${pokemon.name}`} />
         <link rel="icon" href="/favicon.ico" />
       </Head>
+
+      <TurnButton
+        id={id}
+        pokemonIds={pokemonIds}
+      />
 
       <main className="container mx-auto px-5 pt-5 mt-5 mb-32 break-all">
         <div className="lg:flex mb-8 lg:space-x-3">
