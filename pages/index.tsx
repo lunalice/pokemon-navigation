@@ -4,6 +4,7 @@ import Image from 'next/image'
 import SearchBox from '../components/SearchBox'
 import { PokemonClient } from 'pokenode-ts';
 import { useState, useEffect, useMemo } from "react";
+import { useRouter } from 'next/router'
 
 export const getServerSideProps: GetServerSideProps = async () => {
   // auto cache lib
@@ -18,6 +19,7 @@ export const getServerSideProps: GetServerSideProps = async () => {
 
 const Home: NextPage = (props: any) => {
   const [pokemonId, setPokemonId] = useState(1);
+  const router = useRouter();
   const randomPokemon = async () => {
     const random = Math.floor(Math.random() * (props.optionList.length + 1));
     const select = await props.optionList[random];
@@ -40,6 +42,12 @@ const Home: NextPage = (props: any) => {
     );
   }, [pokemonId]);
 
+  const pageTransition = (e: any) => {
+    if (e.key === 'Enter' && e.target.checked) {
+      router.push(e.target.value);
+    }
+  }
+
   return (
     <div>
       <Head>
@@ -52,6 +60,30 @@ const Home: NextPage = (props: any) => {
             {randomImage}
           </div>
           <SearchBox optionList={props.optionList} />
+          
+          <div className="container mx-auto my-10 mb-32 max-w-2xl">
+            <div className="flex flex-wrap items-center nes-container break-all is-rounded">
+              <label className="md:w-1/2 w-full">
+                <input type="radio" className="nes-radio" name="select" value="/pokedex" onKeyPress={pageTransition}/>
+                <span>Pokedex</span>
+              </label>
+
+              <label className="md:w-1/2 w-full">
+                <input type="radio" className="nes-radio" name="select" disabled/>
+                <span className="line-through">Go Looking</span>
+              </label>
+
+              <label className="md:w-1/2 w-full">
+                <input type="radio" className="nes-radio" name="select" disabled/>
+                <span className="line-through">no content</span>
+              </label>
+
+              <label className="md:w-1/2 w-full">
+                <input type="radio" className="nes-radio" name="select" disabled/>
+                <span className="line-through">no content</span>
+              </label>
+            </div>
+          </div>
         </div>
       </main>
     </div>
