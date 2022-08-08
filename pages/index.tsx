@@ -43,7 +43,7 @@ const Home: NextPage = (props: any) => {
   }, [pokemonId]);
 
   const pageTransition = (e: any) => {
-    if (e.key === 'Enter' && e.target.checked) {
+    if (e.target.checked) {
       router.push(e.target.value);
     }
   }
@@ -64,7 +64,7 @@ const Home: NextPage = (props: any) => {
           <div className="container mx-auto my-10 mb-32 max-w-2xl">
             <div className="flex flex-wrap items-center nes-container break-all is-rounded">
               <label className="md:w-1/2 w-full">
-                <input type="radio" className="nes-radio" name="select" value="/pokedex" onKeyPress={pageTransition}/>
+                <input type="radio" className="nes-radio" name="select" value="/pokedex" onChange={pageTransition}/>
                 <span>Pokedex</span>
               </label>
 
