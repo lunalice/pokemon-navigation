@@ -1,7 +1,7 @@
 import type { NextPage, GetServerSideProps } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
-import { usePropsData } from '../../context'
+import { usePropsData, STORAGE_KEY_POKEMON_IDS } from '../../context'
 import { PokemonClient } from 'pokenode-ts';
 import { useState, useEffect, useMemo } from "react";
 import { useRouter } from 'next/router'
@@ -27,8 +27,19 @@ export const getServerSideProps: GetServerSideProps = async () => {
   };
 };
 
-
 const Pokedex: NextPage = ({ pokemonIndex }: any) => {
+  const [achievement, setAchievement] = useState(false);
+  const invertAchievement = () => { setAchievement(v => !v); };
+  const { data, setPropsValues } = usePropsData();
+
+  const checkAchievement = (v: any) => {
+    return !data.gettedPokemonIds.includes(v);
+  }
+
+  useEffect(() => {
+    setPropsValues(JSON.parse(localStorage.getItem(STORAGE_KEY_POKEMON_IDS) || '{}'));
+  }, []);
+
   return (
     <div>
       <Head>
@@ -38,7 +49,7 @@ const Pokedex: NextPage = ({ pokemonIndex }: any) => {
         <div className="flex flex-wrap container mx-auto my-10">
           {pokemonIndex.map((v: any) => (
             <Link key={v.id} href={{ pathname: '/pokemon/[id]', query: { id: v.id }}} passHref>
-              <a className="flex flex-col justify-center items-center flex-1 card w-1/2 border-4 border-black mr-1 mb-1 p-2">
+              <a className={`${(achievement && checkAchievement(v.id)) ? "pointer-events-none" : ""} flex flex-col justify-center items-center flex-1 card w-1/2 border-4 border-black mr-1 mb-1 p-2 relative`}>
                 <Image
                   src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${v.id}.png`}
                   alt={`No.${v.id}`}
@@ -47,10 +58,26 @@ const Pokedex: NextPage = ({ pokemonIndex }: any) => {
                   loading="lazy"
                   />
                 <span className="w-[100px] break-words">No.{v.id} {v.name}</span>
+                <div className={(achievement && checkAchievement(v.id)) ? "bg-black absolute left-0 top-0 bottom-0 right-0 text-white flex justify-center items-center text-center" : ""}>not caught</div>
               </a>
             </Link>
           ))}
         </div>
+        <button type="button" className="fixed bottom-6 right-4 z-20" onClick={invertAchievement}>
+          {/* <section className="message -right">
+            <div className="nes-balloon from-right">
+              <p>Good morning. Thou hast had a good night's sleep, I hope.</p>
+            </div>
+          </section> */}
+          <Image
+            src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/479.png`}
+            alt={`No.479`}
+            width={96}
+            height={96}
+            className="animate-fuwa"
+            loading="lazy"
+            />
+        </button>
       </main>
     </div>
   )

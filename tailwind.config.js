@@ -56,13 +56,25 @@ module.exports = {
           "100%": {
             opacity: 1,
           },   
-        }
+        },
+        fuwa: {
+          "0%": {
+            transform: "translateY(0px)",
+          },
+          "50%": {
+            transform: "translateY(-15px)",
+          },
+          "100%": {
+            transform: "translateY(0px)",
+          },   
+        },
       },
       animation: {
         appear: "appear 1s ease 0s 1 forwards",
         disappear: "disappear 1s ease 0s 1 forwards",
         poyo: "poyo 3s linear infinite",
         fade: "fade 1s ease 0s",
+        fuwa: "fuwa 3s infinite",
       },
     },
   },

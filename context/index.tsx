@@ -1,14 +1,15 @@
-import { useState, createContext, useContext } from "react";
+import { useState, createContext, useContext, useCallback, useEffect } from "react";
 
 export type PropsFormat = {
   gettedPokemonIds: Number[];
-  fuga?: string;
 }
 
 type PropsContextInterface = {
   data: PropsFormat;
   setPropsValues: (values: Object) => void;
 }
+
+export const STORAGE_KEY_POKEMON_IDS = 'pokemon-navigation.vercel.app//pokemonIds'
 
 export const PropsContext = createContext<PropsContextInterface>({} as PropsContextInterface);
 
@@ -17,6 +18,7 @@ export default function PropsProvider({ children }: any) {
 
   const setPropsValues = (values: Object) => {
     setData(() => {
+      localStorage.setItem(STORAGE_KEY_POKEMON_IDS, JSON.stringify({ ...data, ...values }))
       return { ...data, ...values };
     });
   };

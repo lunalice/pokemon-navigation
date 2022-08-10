@@ -1,7 +1,7 @@
 import type { NextPage, GetServerSideProps } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
-import { usePropsData } from '../../context'
+import { usePropsData, STORAGE_KEY_POKEMON_IDS } from '../../context'
 import { PokemonClient, UtilityClient } from 'pokenode-ts';
 import { useState, useEffect, useMemo } from "react";
 import { useRouter } from 'next/router'
@@ -126,6 +126,7 @@ const Catch: NextPage = ({ pokemonIndex }: any) => {
 
   useEffect(() => {
     randomPokemon();
+    setPropsValues(JSON.parse(localStorage.getItem(STORAGE_KEY_POKEMON_IDS) || '{}'));
   }, []);
 
   const battle = (e: any) => {
@@ -147,6 +148,23 @@ const Catch: NextPage = ({ pokemonIndex }: any) => {
     }
   }
 
+  const randomImage = useMemo(() => {
+    return (
+      <Image
+        className="animate-poyo"
+        src={pokemon?.sprites?.front_default || `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png`}
+        alt="pokemon"
+        width={192}
+        height={192} />
+    );
+  }, [pokemon]);
+
+  const renderMessages = useMemo(() => {
+    return messages.map((v: any, index: any) => (
+        <span className="w-full animate-fade" key={index}>{v}</span>
+      ));
+  }, [messages]);
+
   return (
     <div>
       <Head>
@@ -162,12 +180,7 @@ const Catch: NextPage = ({ pokemonIndex }: any) => {
                 <progress className="nes-progress h-5" value={calcHp()} max="100"></progress>
               </div>
               <div className="flex-1 text-right">
-                <Image
-                  className="animate-poyo"
-                  src={pokemon?.sprites?.front_default || `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png`}
-                  alt="pokemon"
-                  width={192}
-                  height={192} />
+                {randomImage}
               </div>
             </div>
           </div>
@@ -196,9 +209,7 @@ const Catch: NextPage = ({ pokemonIndex }: any) => {
 
           <div id="messageBox" className="nes-container is-rounded max-h-24 overflow-y-scroll !mt-5">
             <div className="flex flex-wrap flex-col break-all">
-              {messages.map((v: any, index: any) => (
-                <span className="w-full animate-fade" key={index}>{v}</span>
-              ))}
+              {renderMessages}
             </div>
           </div>
         </div>
