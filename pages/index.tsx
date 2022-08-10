@@ -69,8 +69,8 @@ const Home: NextPage = (props: any) => {
               </label>
 
               <label className="md:w-1/2 w-full">
-                <input type="radio" className="nes-radio" name="select" disabled/>
-                <span className="line-through">Go Looking</span>
+                <input type="radio" className="nes-radio" name="select" value="/catch" onChange={pageTransition}/>
+                <span>Catch</span>
               </label>
 
               <label className="md:w-1/2 w-full">

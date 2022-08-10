@@ -1,28 +1,28 @@
 import { useState, createContext, useContext } from "react";
 
 export type PropsFormat = {
-  hoge?: string;
+  gettedPokemonIds: Number[];
   fuga?: string;
 }
 
 type PropsContextInterface = {
   data: PropsFormat;
-  setFormValues: (values: Object) => void;
+  setPropsValues: (values: Object) => void;
 }
 
 export const PropsContext = createContext<PropsContextInterface>({} as PropsContextInterface);
 
-export default function FormProvider({ children }: any) {
-  const [data, setData] = useState({} as PropsFormat);
+export default function PropsProvider({ children }: any) {
+  const [data, setData] = useState({ gettedPokemonIds: [] } as PropsFormat);
 
-  const setFormValues = (values: Object) => {
+  const setPropsValues = (values: Object) => {
     setData(() => {
       return { ...data, ...values };
     });
   };
 
   return (
-    <PropsContext.Provider value={{ data, setFormValues }}>
+    <PropsContext.Provider value={{ data, setPropsValues }}>
       {children}
     </PropsContext.Provider>
   );

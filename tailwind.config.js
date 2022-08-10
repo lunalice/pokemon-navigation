@@ -48,12 +48,21 @@ module.exports = {
           "80%": {
             transform: "scale(1.0)",
           }
+        },
+        fade: {
+          "0%": {
+            opacity: 0,
+          },
+          "100%": {
+            opacity: 1,
+          },   
         }
       },
       animation: {
-        appear: "appear 2s ease 2s 1 forwards",
-        disappear: "disappear 2s ease 2s 1 forwards",
+        appear: "appear 1s ease 0s 1 forwards",
+        disappear: "disappear 1s ease 0s 1 forwards",
         poyo: "poyo 3s linear infinite",
+        fade: "fade 1s ease 0s",
       },
     },
   },
