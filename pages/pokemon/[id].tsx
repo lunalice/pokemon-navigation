@@ -15,8 +15,8 @@ import {
   defaults,
 } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
+import Link, { LinkProps } from 'next/link';
 
-defaults.font.family ='Press Start 2P';
 ChartJS.register(
   CategoryScale,
   LinearScale,
@@ -131,6 +131,11 @@ const Pokemon: NextPage = ({ pokemon, species, pokemonIds }:any) => {
       />
 
       <main className="container mx-auto px-5 pt-5 mt-5 mb-32 break-all">
+        <div className="text-right py-2">
+          <Link href="/pokedex">
+            <a>pokedex</a>
+          </Link>
+        </div>
         <div className="lg:flex mb-8 lg:space-x-3">
           <div className="nes-container with-title mx-auto lg:flex-1">
             <p className="title">No.{pokemon.id}</p>

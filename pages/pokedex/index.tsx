@@ -45,8 +45,13 @@ const Pokedex: NextPage = ({ pokemonIndex }: any) => {
       <Head>
         <title>Pokedex</title>
       </Head>
-      <main className="mx-5">
-        <div className="flex flex-wrap container mx-auto my-10">
+      <main className="mx-5 my-10">
+        <div className="text-right py-2">
+          <Link href="/catch">
+            <a>Catch</a>
+          </Link>
+        </div>
+        <div className="flex flex-wrap container mx-auto">
           {pokemonIndex.map((v: any) => (
             <Link key={v.id} href={{ pathname: '/pokemon/[id]', query: { id: v.id }}} passHref>
               <a className={`${(achievement && checkAchievement(v.id)) ? "pointer-events-none" : ""} flex flex-col justify-center items-center flex-1 card w-1/2 border-4 border-black mr-1 mb-1 p-2 relative`}>

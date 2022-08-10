@@ -212,6 +212,12 @@ const Catch: NextPage = ({ pokemonIndex }: any) => {
               {renderMessages}
             </div>
           </div>
+
+          <div className="text-right py-2">
+            <Link href="/pokedex">
+              <a>pokedex</a>
+            </Link>
+          </div>
         </div>
       </main>
     </div>
