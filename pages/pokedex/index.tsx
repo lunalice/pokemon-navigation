@@ -46,27 +46,29 @@ const Pokedex: NextPage = ({ pokemonIndex }: any) => {
         <title>Pokedex</title>
       </Head>
       <main className="mx-5 my-10">
-        <div className="text-right py-2">
-          <Link href="/catch">
-            <a>Catch</a>
-          </Link>
-        </div>
-        <div className="flex flex-wrap container mx-auto">
-          {pokemonIndex.map((v: any) => (
-            <Link key={v.id} href={{ pathname: '/pokemon/[id]', query: { id: v.id }}} passHref>
-              <a className={`${(achievement && checkAchievement(v.id)) ? "pointer-events-none" : ""} flex flex-col justify-center items-center flex-1 card w-1/2 border-4 border-black mr-1 mb-1 p-2 relative`}>
-                <Image
-                  src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${v.id}.png`}
-                  alt={`No.${v.id}`}
-                  width={96}
-                  height={96}
-                  loading="lazy"
-                  />
-                <span className="w-[100px] break-words">No.{v.id} {v.name}</span>
-                <div className={(achievement && checkAchievement(v.id)) ? "bg-black absolute left-0 top-0 bottom-0 right-0 text-white flex justify-center items-center text-center" : "hidden"}>not caught</div>
-              </a>
+        <div className="container mx-auto">
+          <div className="text-right py-2">
+            <Link href="/catch">
+              <a>Catch</a>
             </Link>
-          ))}
+          </div>
+          <div className="flex flex-wrap">
+            {pokemonIndex.map((v: any) => (
+              <Link key={v.id} href={{ pathname: '/pokemon/[id]', query: { id: v.id }}} passHref>
+                <a className={`${(achievement && checkAchievement(v.id)) ? "pointer-events-none" : ""} flex flex-col justify-center items-center flex-1 card w-1/2 border-4 border-black mr-1 mb-1 p-2 relative`}>
+                  <Image
+                    src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${v.id}.png`}
+                    alt={`No.${v.id}`}
+                    width={96}
+                    height={96}
+                    loading="lazy"
+                    />
+                  <span className="w-[100px] break-words">No.{v.id} {v.name}</span>
+                  <div className={(achievement && checkAchievement(v.id)) ? "bg-black absolute left-0 top-0 bottom-0 right-0 text-white flex justify-center items-center text-center" : "hidden"}>not caught</div>
+                </a>
+              </Link>
+            ))}
+          </div>
         </div>
         <button type="button" className="fixed bottom-6 right-4 z-20" onClick={invertAchievement}>
           {/* <section className="message -right">
