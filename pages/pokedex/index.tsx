@@ -58,7 +58,7 @@ const Pokedex: NextPage = ({ pokemonIndex }: any) => {
                   loading="lazy"
                   />
                 <span className="w-[100px] break-words">No.{v.id} {v.name}</span>
-                <div className={(achievement && checkAchievement(v.id)) ? "bg-black absolute left-0 top-0 bottom-0 right-0 text-white flex justify-center items-center text-center" : ""}>not caught</div>
+                <div className={(achievement && checkAchievement(v.id)) ? "bg-black absolute left-0 top-0 bottom-0 right-0 text-white flex justify-center items-center text-center" : "hidden"}>not caught</div>
               </a>
             </Link>
           ))}
